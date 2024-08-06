@@ -20,10 +20,8 @@ RUN apt -y update && apt -y install \
 	wget \
   && rm -rf /var/lib/apt/lists/*
 
-RUN adduser --disabled-password --gecos '' docker
-
-RUN mkdir -p /work && chown docker /work
-RUN mkdir -p /root && chown docker /root && mkdir -p /root/workspace
+RUN mkdir -p /work
+RUN mkdir -p /root && mkdir -p /root/workspace
 
 WORKDIR /work
 
@@ -32,8 +30,6 @@ RUN ./setup-toolchain.sh
 
 VOLUME /root/workspace
 WORKDIR /root/workspace
-
-USER docker
 
 ENV PATH="/work/MOSS/build.MOSS-RK3566.aarch64/toolchain/usr/bin:${PATH}:/work/MOSS/build.MOSS-RK3566.aarch64/toolchain/aarch64-libreelec-linux-gnueabi/sysroot/bin"
 ENV CROSS_COMPILE=/work/MOSS/build.MOSS-RK3566.aarch64/toolchain/bin/aarch64-libreelec-linux-gnueabi-
